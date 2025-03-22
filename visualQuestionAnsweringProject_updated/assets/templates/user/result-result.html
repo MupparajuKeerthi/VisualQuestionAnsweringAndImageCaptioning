@@ -1,0 +1,84 @@
+{% extends 'base-dashboard.html' %}
+{% block content %}
+{% load static %}
+<style>
+    .form-container {
+        display: block; 
+    }
+    .image-preview-container {
+        display: none; 
+        margin-top: 20px;
+    }
+    .form-container.hidden {
+        display: none;
+    }
+</style>
+<div class="container" style="margin-bottom: 20px;">
+    <select id="language-selector" onchange="changeLanguage()">
+        <option value="en">English</option>
+        <option value="hi">Hindi</option>
+        <option value="te">Telugu</option>
+        <option value="fr">French</option>
+        <option value="es">Spanish</option>
+        <option value="de">German</option>
+        <!-- Add other languages as needed -->
+    </select>
+</div>
+
+<script>
+    // Function to change language and reload the page
+    function changeLanguage() {
+        const lang = document.getElementById('language-selector').value;
+        
+        // Reload the page with the selected language
+        const url = window.location.href.split('?')[0] + '?lang=' + lang;
+        window.location.href = url;
+    }
+</script>
+<section class="background-radial-gradient overflow-hidden">
+    
+    <div class="container-fluid">
+        <div class="row mt-5 py-2">
+            <div class="col-md-12 mx-auto d-flex align-items-center justify-content-center" >
+                <div class="container-fluid bg-light bg-icon py-6">
+                    <div class="container">
+                        <div class="section-header text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
+                            <h1 class="display-5 mb-3">Image Captioning</h1>
+                            <p>Tempor ut dolore lorem kasd vero ipsum sit eirmod sit. Ipsum diam justo sed rebum vero dolor duo.</p>
+                        </div>
+                        <div class="row g-4">
+                            <div class="container-fluid bg-light py-6">
+                                <div class="container">
+                                    <div class="row justify-content-center align-items-center">
+                                        <div class="col-md-6">
+                                            <div class="card border-0 shadow-lg p-4">
+                                                <div class="card-body text-center">
+                                                    <h5 class="card-title mb-4">Upload Your Image</h5>
+                                                    <form id="uploadForm" enctype="multipart/form-data" method="post" action="{% url 'user_caption' %}">
+                                                        {% csrf_token %}
+                                                        <label for="imageUpload" class="btn btn-outline-primary mb-4">
+                                                            Choose Image
+                                                            <input type="file" id="imageUpload" name="image" accept="image/*" style="display: none;">
+                                                        </label>
+                                                        <button type="submit" class="btn btn-primary rounded-pill py-3 px-5" style="position:relative;bottom:12px;margin-left:20px;background-color:green">Upload</button>
+                                                    </form>
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            
+        </div>
+    </div>
+    
+</section>
+
+{% endblock %}

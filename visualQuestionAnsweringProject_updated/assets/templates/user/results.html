@@ -1,0 +1,81 @@
+{% extends 'base-dashboard.html' %}
+{% block content %}
+{% load static %}
+<style>
+    .form-container {
+        display: block; 
+    }
+    .image-preview-container {
+        display: none; 
+        margin-top: 20px;
+    }
+    .form-container.hidden {
+        display: none;
+    }
+</style>
+<div class="container" style="margin-bottom: 20px;">
+    <select id="language-selector" onchange="changeLanguage()">
+        <option value="en">English</option>
+        <option value="hi">Hindi</option>
+        <option value="te">Telugu</option>
+        <option value="fr">French</option>
+        <option value="es">Spanish</option>
+        <option value="de">German</option>
+        <!-- Add other languages as needed -->
+    </select>
+</div>
+
+<script>
+    // Function to change language and reload the page
+    function changeLanguage() {
+        const lang = document.getElementById('language-selector').value;
+        
+        // Reload the page with the selected language
+        const url = window.location.href.split('?')[0] + '?lang=' + lang;
+        window.location.href = url;
+    }
+</script>
+<section class="background-radial-gradient overflow-hidden">
+    
+    <div class="container-fluid">
+        <div class="row mt-5 py-2">
+            <div class="col-md-12 mx-auto d-flex align-items-center justify-content-center" >
+                <div class="container-fluid page-header wow fadeIn" data-wow-delay="0.1s">
+                    <div class="container">
+                        <div class="section-header text-center mx-auto mb-3 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px; margin-bottom: 20px;">
+                            <h1 class="display-5 mb-3" style="color: aliceblue;">Result</h1><br>
+                        </div>
+                        <div class="container">
+                            <div class="row justify-content-center align-items-center">
+                                <div class="col-md-4"> <!-- Adjusted width for image section -->
+                                    <div class="content-wrapper border" style="height: 500px; border: 2px solid black; box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); display: flex; flex-direction: column; align-items: center; text-align: center;">
+                                        <br>
+                                        <h4 style="color: aliceblue;">Your Image<hr></h4>
+                                        <img src="{{ uploaded_image_url }}" alt="Uploaded Image" style="max-width: 300px; height:350px ;"> <!-- Adjusted for responsive image --><br>
+                                    </div>                        
+                                </div>
+                                <div class="col-md-8"> <!-- Adjusted width for content section -->
+                                    
+                                        
+                                        <br>
+                                        <h4 style="text-align:center;color:blue; ">Predicted Caption</h4><hr>
+                                        <br>
+                                        <h5 style="text-align:center; color: aliceblue;"><b>{{ result }}</b></h5>
+                                        <br>
+                                    </div>
+                                    
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            
+        </div>
+    </div>
+    
+</section>
+
+{% endblock %}

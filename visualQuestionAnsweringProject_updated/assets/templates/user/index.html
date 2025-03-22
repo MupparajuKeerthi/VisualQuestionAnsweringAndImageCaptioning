@@ -1,0 +1,229 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+
+
+<style>
+    .fact {
+        background: linear-gradient(rgba(0, 0, 0, .4), rgba(0, 0, 0, .4)), url("{% static 'user/img/vq9.avif' %}") center center no-repeat;
+        background-size: cover;
+    }
+</style>
+<!-- Carousel Start -->
+<div class="container-fluid p-0 mb-5">
+    <div class="owl-carousel header-carousel position-relative">
+        <div class="owl-carousel-item position-relative">
+            <img class="img-fluid" src="{% static 'user/img/vq1.avif' %}" alt="Deep Learning Model">
+            <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center" style="background: rgba(0, 0, 0, .4);">
+                <div class="container">
+                    <div class="row justify-content-start">
+                        <div class="col-10 col-lg-8">
+                            <h5 class="text-white text-uppercase mb-3 animated slideInDown">Visual Question Answering</h5>
+                            <h1 class="display-3 text-white animated slideInDown mb-4">Innovative VQA with Deep Learning</h1>
+                            <p class="fs-5 fw-medium text-white mb-4 pb-2">Leverage advanced deep learning models to answer questions based on visual inputs, transforming the way we interact with images.</p>
+                            <a href="#features" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Learn More</a>
+                            <a href="#demo" class="btn btn-secondary py-md-3 px-md-5 animated slideInRight">View Demo</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="owl-carousel-item position-relative">
+            <img class="img-fluid" src="{% static 'user/img/vq3.avif' %}" alt="AI Answering Questions">
+            <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center" style="background: rgba(0, 0, 0, .4);">
+                <div class="container">
+                    <div class="row justify-content-start">
+                        <div class="col-10 col-lg-8">
+                            <h5 class="text-white text-uppercase mb-3 animated slideInDown">Transforming Image Interaction</h5>
+                            <h1 class="display-3 text-white animated slideInDown mb-4">Deep Learning for Intelligent Answers</h1>
+                            <p class="fs-5 fw-medium text-white mb-4 pb-2">Our VQA system uses cutting-edge deep learning techniques to understand and answer questions about visual content with high accuracy.</p>
+                            <a href="#features" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Learn More</a>
+                            <a href="#contact" class="btn btn-secondary py-md-3 px-md-5 animated slideInRight">Get Started</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Carousel End -->
+
+<!-- Service Start -->
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-lg-4 col-md-6 service-item-top wow fadeInUp" data-wow-delay="0.1s">
+                <div class="overflow-hidden">
+                    <img class="img-fluid w-100 h-100" src="{% static 'user/img/vq4.jpg' %}" alt="Image Understanding">
+                </div>
+                <div class="d-flex align-items-center justify-content-between bg-light p-4">
+                    <h5 class="text-truncate me-3 mb-0">Image Understanding</h5>
+                    <a class="btn btn-square btn-outline-primary border-2 border-white flex-shrink-0" href=""><i class="fa fa-arrow-right"></i></a>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 service-item-top wow fadeInUp" data-wow-delay="0.3s">
+                <div class="overflow-hidden">
+                    <img class="img-fluid w-100 h-100" src="{% static 'user/img/vq5.avif' %}" alt="Answer Generation">
+                </div>
+                <div class="d-flex align-items-center justify-content-between bg-light p-4">
+                    <h5 class="text-truncate me-3 mb-0">Answer Generation</h5>
+                    <a class="btn btn-square btn-outline-primary border-2 border-white flex-shrink-0" href=""><i class="fa fa-arrow-right"></i></a>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 service-item-top wow fadeInUp" data-wow-delay="0.5s">
+                <div class="overflow-hidden">
+                    <img class="img-fluid w-100 h-100" src="{% static 'user/img/vq6.jpg' %}" alt="Interactive Q&A">
+                </div>
+                <div class="d-flex align-items-center justify-content-between bg-light p-4">
+                    <h5 class="text-truncate me-3 mb-0">Interactive Q&A</h5>
+                    <a class="btn btn-square btn-outline-primary border-2 border-white flex-shrink-0" href=""><i class="fa fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Service End -->
+
+
+<!-- About Start -->
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="row g-5">
+            <!-- About Us Section -->
+            <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
+                <h6 class="text-secondary text-uppercase">About Us</h6>
+                <h1 class="mb-4">Pioneers in Visual Question Answering with Deep Learning</h1>
+                <p class="mb-4">Our state-of-the-art technology utilizes deep learning models to perform Visual Question Answering (VQA), enabling systems to understand and answer questions about visual content. We excel in integrating AI to bridge the gap between visual perception and natural language understanding.</p>
+                <p class="fw-medium text-primary"><i class="fa fa-check text-success me-3"></i>Advanced VQA with deep learning</p>
+                <p class="fw-medium text-primary"><i class="fa fa-check text-success me-3"></i>Real-time image analysis and question answering</p>
+                <p class="fw-medium text-primary"><i class="fa fa-check text-success me-3"></i>Transforming interactions with visual content</p>
+                <div class="bg-primary d-flex align-items-center p-4 mt-5">
+                    <div class="d-flex flex-shrink-0 align-items-center justify-content-center bg-white" style="width: 60px; height: 60px;">
+                        <i class="fa fa-image fa-2x text-primary"></i>
+                    </div>
+                    <div class="ms-3">
+                        <p class="fs-5 fw-medium mb-2 text-white">Contact Us</p>
+                        <h3 class="m-0 text-secondary">9959382287</h3>
+                    </div>
+                </div>
+            </div>
+            <!-- Image Section -->
+            <div class="col-lg-6 pt-4" style="min-height: 500px;">
+                <div class="position-relative h-100 wow fadeInUp" data-wow-delay="0.5s">
+                    <img class="position-absolute img-fluid w-100 h-100" src="{% static 'user/img/vq7.avif' %}" style="object-fit: cover; padding: 0 0 50px 100px;" alt="Visual Question Answering">
+                    <img class="position-absolute start-0 bottom-0 img-fluid bg-white pt-2 pe-2 w-50 h-50" src="{% static 'user/img/vq8.avif' %}" style="object-fit: cover;" alt="Deep Learning Model">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- About End -->
+
+
+<!-- Fact Start -->
+<div class="container-fluid fact bg-dark my-5 py-5">
+    <div class="container">
+        <div class="row g-4">
+            <!-- Experience Section -->
+            <div class="col-md-6 col-lg-3 text-center wow fadeIn" data-wow-delay="0.1s">
+                <i class="fa fa-brain fa-2x text-white mb-3"></i>
+                <h2 class="text-white mb-2" data-toggle="counter-up">5</h2>
+                <p class="text-white mb-0">Years in VQA Research</p>
+            </div>
+            <!-- Expert Technicians Section -->
+            <div class="col-md-6 col-lg-3 text-center wow fadeIn" data-wow-delay="0.3s">
+                <i class="fa fa-users fa-2x text-white mb-3"></i>
+                <h2 class="text-white mb-2" data-toggle="counter-up">30+</h2>
+                <p class="text-white mb-0">Expert Data Scientists</p>
+            </div>
+            <!-- Satisfied Clients Section -->
+            <div class="col-md-6 col-lg-3 text-center wow fadeIn" data-wow-delay="0.5s">
+                <i class="fa fa-star fa-2x text-white mb-3"></i>
+                <h2 class="text-white mb-2" data-toggle="counter-up">150+</h2>
+                <p class="text-white mb-0">Satisfied Clients</p>
+            </div>
+            <!-- Completed Projects Section -->
+            <div class="col-md-6 col-lg-3 text-center wow fadeIn" data-wow-delay="0.7s">
+                <i class="fa fa-trophy fa-2x text-white mb-3"></i>
+                <h2 class="text-white mb-2" data-toggle="counter-up">75+</h2>
+                <p class="text-white mb-0">Completed Projects</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Fact End -->
+
+
+<!-- Service Start -->
+<div class="container-fluid py-5 px-4 px-lg-0">
+    <div class="row g-0">
+        <div class="col-lg-3 d-none d-lg-flex">
+            <div class="d-flex align-items-center justify-content-center bg-primary w-100 h-100">
+                <h1 class="display-3 text-white m-0" style="transform: rotate(-90deg);">5 Years of Innovation</h1>
+            </div>
+        </div>
+        <div class="col-md-12 col-lg-9">
+            <div class="ms-lg-5 ps-lg-5">
+                <div class="text-center text-lg-start wow fadeInUp" data-wow-delay="0.1s">
+                    <h6 class="text-secondary text-uppercase">Our Solutions</h6>
+                    <h1 class="mb-5">Explore Our Visual Question & Answering Services</h1>
+                </div>
+                <div class="owl-carousel service-carousel position-relative wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="bg-light p-4">
+                        <div class="d-flex align-items-center justify-content-center border border-5 border-white mb-4" style="width: 75px; height: 75px;">
+                            <i class="fa fa-camera fa-2x text-primary"></i>
+                        </div>
+                        <h4 class="mb-3">Visual Question Answering</h4>
+                        <p>Advanced VQA systems to provide accurate answers based on visual inputs.</p>
+                        <p class="text-primary fw-medium"><i class="fa fa-check text-success me-2"></i>High Accuracy</p>
+                        <p class="text-primary fw-medium"><i class="fa fa-check text-success me-2"></i>Real-Time Responses</p>
+                        <p class="text-primary fw-medium"><i class="fa fa-check text-success me-2"></i>Advanced AI Models</p>
+                        <a href="#" class="btn bg-white text-primary w-100 mt-2">Read More<i class="fa fa-arrow-right text-secondary ms-2"></i></a>
+                    </div>
+                    <div class="bg-light p-4">
+                        <div class="d-flex align-items-center justify-content-center border border-5 border-white mb-4" style="width: 75px; height: 75px;">
+                            <i class="fa fa-brain fa-2x text-primary"></i>
+                        </div>
+                        <h4 class="mb-3">AI Model Training</h4>
+                        <p>Training sophisticated models to enhance the accuracy and efficiency of visual question answering.</p>
+                        <p class="text-primary fw-medium"><i class="fa fa-check text-success me-2"></i>Customizable Models</p>
+                        <p class="text-primary fw-medium"><i class="fa fa-check text-success me-2"></i>Continuous Improvement</p>
+                        <p class="text-primary fw-medium"><i class="fa fa-check text-success me-2"></i>Scalable Solutions</p>
+                        <a href="#" class="btn bg-white text-primary w-100 mt-2">Read More<i class="fa fa-arrow-right text-secondary ms-2"></i></a>
+                    </div>
+                    <div class="bg-light p-4">
+                        <div class="d-flex align-items-center justify-content-center border border-5 border-white mb-4" style="width: 75px; height: 75px;">
+                            <i class="fa fa-database fa-2x text-primary"></i>
+                        </div>
+                        <h4 class="mb-3">Data Analysis</h4>
+                        <p>In-depth analysis of visual data to enhance the performance and accuracy of VQA systems.</p>
+                        <p class="text-primary fw-medium"><i class="fa fa-check text-success me-2"></i>Detailed Analytics</p>
+                        <p class="text-primary fw-medium"><i class="fa fa-check text-success me-2"></i>Actionable Insights</p>
+                        <p class="text-primary fw-medium"><i class="fa fa-check text-success me-2"></i>Data-Driven Decisions</p>
+                        <a href="#" class="btn bg-white text-primary w-100 mt-2">Read More<i class="fa fa-arrow-right text-secondary ms-2"></i></a>
+                    </div>
+                    <div class="bg-light p-4">
+                        <div class="d-flex align-items-center justify-content-center border border-5 border-white mb-4" style="width: 75px; height: 75px;">
+                            <i class="fa fa-shield-alt fa-2x text-primary"></i>
+                        </div>
+                        <h4 class="mb-3">Ethical AI</h4>
+                        <p>Ensuring that our VQA systems are developed and deployed with ethical considerations in mind.</p>
+                        <p class="text-primary fw-medium"><i class="fa fa-check text-success me-2"></i>Ethical Standards</p>
+                        <p class="text-primary fw-medium"><i class="fa fa-check text-success me-2"></i>Privacy Protection</p>
+                        <p class="text-primary fw-medium"><i class="fa fa-check text-success me-2"></i>Transparent Processes</p>
+                        <a href="#" class="btn bg-white text-primary w-100 mt-2">Read More<i class="fa fa-arrow-right text-secondary ms-2"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Service End -->
+
+{% endblock %}

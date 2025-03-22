@@ -1,0 +1,155 @@
+{% extends 'base-dashboard.html' %}
+{% block content %}
+{% load static %}
+<style>
+    /* General Reset */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Arial', sans-serif;
+    }
+
+    /* Background Gradient */
+    .background-radial-gradient {
+        background: radial-gradient(circle, rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0.3));
+       
+      
+    }
+
+  
+    /* Title Style */
+    h1 {
+        font-size: 2.5rem;
+        font-weight: 700;
+        text-align: center;
+        color: #333;
+        margin-bottom: 30px;
+        text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Form Style */
+    .upload-box {
+        background-color: #ffffff;
+        border-radius: 12px;
+        border: 2px dashed #ddd;
+        padding: 50px;
+        text-align: center;
+        max-width: 500px;
+        margin: 0 auto;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    /* File Input */
+    input[type="file"] {
+        display: block;
+        margin: 20px auto;
+        padding: 12px 20px;
+        font-size: 1rem;
+        border: 2px solid #ddd;
+        border-radius: 8px;
+        background-color: #f9f9f9;
+        cursor: pointer;
+        transition: border-color 0.3s ease;
+    }
+
+    input[type="file"]:hover {
+        border-color: #5f6caf;
+    }
+
+    /* Button Style */
+    button {
+        background-color: #5f6caf;
+        color: #fff;
+        padding: 12px 24px;
+        font-size: 1.1rem;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+        background-color: #4a56b2;
+    }
+
+    /* Grid for Search Results */
+    .results-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        margin-top: 40px;
+    }
+
+    .image-card {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 8px;
+        transition: transform 0.3s ease;
+    }
+
+    .image-card:hover {
+        transform: scale(1.05);
+    }
+
+    /* Image Preview Container */
+    .image-preview-container {
+        display: none;
+        margin-top: 20px;
+    }
+
+    .form-container {
+        display: block;
+    }
+
+    .form-container.hidden {
+        display: none;
+    }
+
+    
+</style>
+
+
+<section class="background-radial-gradient overflow-hidden">
+    <div class="container-fluid">
+        <div class="row mt-5 py-2">
+            <div class="col-md-12 mx-auto d-flex align-items-center justify-content-center">
+                <div class="container">
+                    <h1>Find Similar Images</h1>
+
+                    {% if not search_results %}
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="upload-box">
+                            <input type="file" name="image" accept="image/*" required>
+                            <button type="submit">Search Similar Images</button>
+                        </div>
+                    </form>
+                    {% endif %}
+
+                    {% if image_url %}
+                        <div class="image-preview-container text-center mt-4">
+                            <h3>Uploaded Image:</h3>
+                            <img src="{{ image_url }}" alt="Uploaded Image" class="image-card" style="width: 300px;">
+                        </div>
+                    {% endif %}
+
+                    {% if search_results %}
+                        <h3 class="mt-4 text-center">Similar Images</h3>
+                        <div class="results-grid">
+                            {% for img_url in search_results %}
+                                <a href="{{ img_url }}" target="_blank">
+                                    <img src="{{ img_url }}" alt="Similar Image" class="image-card">
+                                </a>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+{% endblock %}

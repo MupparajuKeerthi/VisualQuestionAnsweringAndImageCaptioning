@@ -1,0 +1,282 @@
+{% extends 'base-dashboard.html' %}
+{% block content %}
+{% load static %}
+<style>
+    .form-container {
+        display: block; 
+    }
+    .image-preview-container {
+        display: none; 
+        margin-top: 20px;
+    }
+    .form-container.hidden {
+        display: none;
+    }
+</style>
+
+<section class="background-radial-gradient overflow-hidden py-5">
+    <div class="container">
+        <style>
+/* Basic Styling for File Input */
+.file-input-label {
+    display: inline-block;
+    font-size: 18px;
+    padding: 12px 24px;
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.file-input-label:hover {
+    background-color: #45a049;
+    transform: scale(1.05);
+}
+
+.file-input {
+    display: none; /* Hide the default file input */
+}
+
+.fade-in {
+    animation: fadeIn 0.6s ease-out;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+/* Styling for File Input Container */
+.row.mb-4 {
+    margin-bottom: 20px;
+}
+
+.text-center {
+    text-align: center;
+}
+
+/* File Input Active State */
+.file-input:active + .file-input-label {
+    background-color: #388e3c;
+}
+
+/* Optional: Adding a border on hover */
+.file-input-label:hover {
+    border: 2px solid #ffffff;
+}
+
+        </style>
+        <!-- Upload Button Row -->
+        <div class="row mb-4">
+            <div class="col-12 text-center">
+                <label class="file-input-label fade-in">
+                    📷 Upload Image
+                    <input type="file" id="fileInput" class="file-input" accept="image/*">
+                </label>
+            </div>
+        </div>
+
+        <!-- Image Cards Row -->
+        <div class="row g-4 justify-content-center">
+            <!-- Original Image Column -->
+            <div class="col-md-6">
+                <div class="image-card fade-in">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h3 class="mb-0">Original Image</h3>
+                        <button id="downloadOriginalBtn" class="custom-btn">Download</button>
+                    </div>
+                    <div class="canvas-container">
+                        <canvas id="originalCanvas" class="img-fluid"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Enhanced Image Column -->
+            <div class="col-md-6">
+                <div class="image-card fade-in">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h3 class="mb-0">Enhanced Image</h3>
+                        <button id="downloadEnhancedBtn" class="custom-btn">Download</button>
+                    </div>
+                    <div class="canvas-container">
+                        <canvas id="enhancedCanvas" class="img-fluid"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <style>
+            .background-radial-gradient {
+                background: radial-gradient(circle at center, #2a2a72 0%, #009ffd 100%);
+                min-height: 100vh;
+            }
+
+            .image-card {
+                background: rgba(255, 255, 255, 0.1);
+                backdrop-filter: blur(10px);
+                border-radius: 15px;
+                padding: 1.5rem;
+                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+                transition: transform 0.3s ease;
+                height: 100%;
+            }
+
+            .image-card:hover {
+                transform: translateY(-5px);
+            }
+
+            canvas {
+                border-radius: 10px;
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+                width: 100% !important;
+                height: auto !important;
+                max-height: 600px;
+                object-fit: contain;
+            }
+
+            .file-input-label {
+                background: linear-gradient(45deg, #00c6ff, #0072ff);
+                padding: 15px 40px;
+                border-radius: 30px;
+                cursor: pointer;
+                transition: transform 0.3s ease;
+                font-weight: 600;
+                color: white;
+                border: none;
+            }
+
+            .file-input-label:hover {
+                transform: scale(1.05);
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            }
+
+            .custom-btn {
+                background: linear-gradient(45deg, #009ffd, #2a2a72);
+                border: none;
+                padding: 8px 25px;
+                color: white;
+                border-radius: 20px;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                font-weight: 500;
+            }
+
+            .custom-btn:hover {
+                transform: scale(1.05);
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            }
+
+            h3 {
+                color: white;
+                font-weight: 600;
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            }
+
+            @keyframes fadeIn {
+                from { opacity: 0; transform: translateY(20px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+
+            .fade-in {
+                animation: fadeIn 0.8s ease-out;
+            }
+
+            .canvas-container {
+                position: relative;
+                padding-top: 75%; /* 4:3 aspect ratio */
+                background: #00000015;
+                border-radius: 10px;
+            }
+
+            canvas {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100% !important;
+                height: 100% !important;
+            }
+
+            @media (max-width: 768px) {
+                .col-md-6 {
+                    margin-bottom: 2rem;
+                }
+                
+                .file-input-label {
+                    width: 100%;
+                    padding: 12px 20px;
+                }
+            }
+        </style>
+
+        <script>
+            // JavaScript remains the same as previous version
+            const fileInput = document.getElementById('fileInput');
+            const originalCanvas = document.getElementById('originalCanvas');
+            const enhancedCanvas = document.getElementById('enhancedCanvas');
+            const originalCtx = originalCanvas.getContext('2d');
+            const enhancedCtx = enhancedCanvas.getContext('2d');
+            const downloadOriginalBtn = document.getElementById('downloadOriginalBtn');
+            const downloadEnhancedBtn = document.getElementById('downloadEnhancedBtn');
+
+            let originalImageData = null;
+            let enhancedImageData = null;
+
+            fileInput.addEventListener('change', handleFileSelect);
+
+            function handleFileSelect(event) {
+                const file = event.target.files[0];
+                const reader = new FileReader();
+
+                reader.onload = function(e) {
+                    const img = new Image();
+                    img.onload = function() {
+                        const aspectRatio = img.width / img.height;
+                        
+                        originalCanvas.width = img.width;
+                        originalCanvas.height = img.height;
+                        enhancedCanvas.width = img.width;
+                        enhancedCanvas.height = img.height;
+
+                        originalCtx.drawImage(img, 0, 0);
+                        originalImageData = originalCtx.getImageData(0, 0, originalCanvas.width, originalCanvas.height);
+                        
+                        applyAdvancedEnhancement();
+                    };
+                    img.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+
+            function applyAdvancedEnhancement() {
+                const width = originalCanvas.width;
+                const height = originalCanvas.height;
+                const data = originalImageData.data;
+                const tempData = new Uint8ClampedArray(data);
+
+                // Processing code remains same as previous version
+                // ... (Include the same processing code from previous answer)
+
+                enhancedImageData = new ImageData(tempData, width, height);
+                enhancedCtx.putImageData(enhancedImageData, 0, 0);
+            }
+
+            downloadOriginalBtn.addEventListener('click', () => downloadImage(originalCanvas, 'original.png'));
+            downloadEnhancedBtn.addEventListener('click', () => downloadImage(enhancedCanvas, 'enhanced.png'));
+
+            function downloadImage(canvas, filename) {
+                const link = document.createElement('a');
+                link.download = filename;
+                link.href = canvas.toDataURL();
+                link.click();
+            }
+        </script>
+    </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,237 @@
+{% extends 'base-dashboard.html' %}
+{% load static %}
+{% block content %}
+<style>
+  /* Define unique theme colors and fonts for VQA */
+  :root {
+    --vqa-primary-color: #ADD8E6;
+    --vqa-accent-color: #F08080;
+    --vqa-font-family: "Segoe UI", Tahoma, sans-serif;
+  }
+
+  /* VQA Body styling */
+  body.vqa-body {
+    background-color: #f2f6fa;
+    font-family: var(--vqa-font-family);
+    margin: 0;
+    padding: 0;
+  }
+
+  /* VQA Section styling */
+  section.vqa-background-radial-gradient {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+  }
+
+  /* VQA Container styling */
+  .vqa-form-container {
+   
+    margin: 0 auto;
+    background: linear-gradient(to bottom, #f9f9ff, #ffffff);
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    color: #333;
+    text-align: center;
+    border: 2px solid #007bff;
+  }
+
+  /* VQA Heading styling */
+  .vqa-form-container h2 {
+    color: #b82717;
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    border-bottom: 3px solid var(--vqa-accent-color);
+    display: inline-block;
+    padding-bottom: 0.25rem;
+  }
+
+  /* VQA Description styling */
+  .vqa-form-container p.vqa-description {
+    color: #495057;
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+    text-align: justify;
+  }
+
+  /* VQA Form group styling */
+  .vqa-form-group {
+    margin-bottom: 1.5rem;
+    text-align: left;
+  }
+  
+  .vqa-form-group label {
+    display: block;
+    margin-bottom: 0.3rem;
+    font-weight: 600;
+  }
+  
+  .vqa-form-group input[type="file"],
+  .vqa-form-group input[type="text"],
+  .vqa-form-group textarea,
+  .vqa-form-group select {
+    width: 100%;
+    font-size: 1rem;
+    border: 2px solid #17a2b8;
+    border-radius: 5px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  /* VQA Language selection styling */
+  .vqa-language-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+  
+  .vqa-language-group label {
+    margin-right: 10px;
+  }
+
+  /* VQA Submit button styling */
+  button.vqa-submit-btn {
+    background: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 12px 25px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 1rem;
+    transition: background 0.3s ease, transform 0.2s ease;
+  }
+  
+  button.vqa-submit-btn:hover {
+    background: #218838;
+    transform: translateY(-2px);
+  }
+  
+  button.vqa-submit-btn:active {
+    background: #1e7e34;
+    transform: translateY(0);
+  }
+  
+  button.vqa-submit-btn:focus {
+    outline: 2px solid var(--vqa-primary-color);
+    outline-offset: 2px;
+  }
+
+  /* VQA Two-column layout for image and Q&A */
+  .vqa-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  
+  .vqa-col {
+    flex: 1;
+    min-width: 300px;
+  }
+  
+  .vqa-img-container img {
+    max-width: 100%;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+  }
+
+  /* VQA Q&A display area */
+  .vqa-qa-container {
+    padding: 1rem;
+    background: #ffffff;
+    border: 2px solid #17a2b8;
+    border-radius: 5px;
+    text-align: left;
+    font-size: 1rem;
+    color: #343a40;
+  }
+
+  /* VQA Mobile responsiveness */
+  @media (max-width: 600px) {
+    .vqa-form-container {
+      margin: 1rem;
+      padding: 1.5rem;
+    }
+    button.vqa-submit-btn {
+      width: 100%;
+    }
+  }
+</style>
+
+<section class="vqa-background-radial-gradient overflow-hidden">
+  <div class="vqa-form-container">
+    {% if qa_data %}
+      <div class="vqa-row">
+        <div class="vqa-col vqa-img-container">
+          <h2>Uploaded Image</h2>
+          <img src="{{ image_url }}" alt="Uploaded Image" />
+        </div>
+        <div class="vqa-col vqa-qa-container">
+          <h2>Generated Questions &amp; Answers</h2>
+          <pre style="white-space: pre-wrap; font-family: var(--vqa-font-family);">{{ qa_data }}</pre>
+        </div>
+      </div>
+    {% else %}
+      <h2>Upload Image and Submit</h2>
+      <p class="vqa-description">
+        Upload an image below and submit to see Visual Question &amp; Answering!
+      </p>
+      <form id="vqa-text-form" method="post" action="{% url 'user_detection' %}" enctype="multipart/form-data">
+        {% csrf_token %}
+        <!-- VQA FILE INPUT GROUP -->
+        <div id="vqa-file-upload-container" class="vqa-form-group">
+          <label for="vqa-image-input">Select an Image</label>
+          <input type="file" name="image" id="vqa-image-input" accept="image/*" required />
+        </div>
+        
+        <!-- VQA Language Selection Group -->
+        <div class="vqa-form-group vqa-language-group">
+          <label for="vqa-langSelect" class="py-4">Select Language:</label>
+          <select id="vqa-langSelect" name="language" class="form-control" style="max-width:200px;">
+            <option value="english">English</option>
+            <option value="hindi">Hindi</option>
+            <option value="tamil">Tamil</option>
+            <option value="telugu">Telugu</option>
+            <option value="kannada">Kannada</option>
+            <option value="malayalam">Malayalam</option>
+            <option value="bengali">Bengali</option>
+            <option value="gujarati">Gujarati</option>
+          </select>
+        </div>
+        
+        <!-- VQA IMAGE PREVIEW (optional) -->
+        <div id="vqa-image-preview" style="display: none; margin-bottom: 1.5rem;">
+          <img id="vqa-preview-img" src="" alt="Image preview" class="img-fluid" />
+        </div>
+  
+        <!-- VQA SUBMIT BUTTON -->
+        <button type="submit" class="vqa-submit-btn">Submit</button>
+      </form>
+    {% endif %}
+  </div>
+</section>
+
+<script>
+  // JavaScript for VQA image preview
+  document.getElementById('vqa-image-input').addEventListener('change', function(event) {
+    const file = event.target.files[0];
+    const previewImg = document.getElementById('vqa-preview-img');
+    const fileUploadContainer = document.getElementById('vqa-file-upload-container');
+    const imagePreview = document.getElementById('vqa-image-preview');
+
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        previewImg.src = e.target.result;
+        imagePreview.style.display = 'block';
+        fileUploadContainer.style.display = 'none';
+      };
+      reader.readAsDataURL(file);
+    }
+  });
+</script>
+{% endblock %}

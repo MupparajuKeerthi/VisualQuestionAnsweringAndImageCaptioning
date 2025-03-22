@@ -1,0 +1,196 @@
+{% extends 'base-dashboard.html' %}
+{% block content %}
+{% load static %}
+
+{% if caption %}
+  <div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-lg-6">
+        <div class="card upload-card">
+          <div class="upload-header">
+            Generated Caption
+          </div>
+          <div class="card-body upload-body">
+            <div class="alert alert-info">
+              <p>{{ caption }}</p>
+            </div>
+           
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% else %}
+  <!-- Original form and preview section remains unchanged -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <style>
+    /* Advanced card styling */
+    .upload-card {
+      border-radius: 15px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+      border: none;
+      overflow: hidden;
+    }
+    .upload-header {
+      background: linear-gradient(135deg, #007bff, #00aaff);
+      color: #fff;
+      font-size: 1.75rem;
+      text-align: center;
+      padding: 1.5rem;
+    }
+    .upload-header small {
+      display: block;
+      font-size: 0.9rem;
+      margin-top: 0.5rem;
+      opacity: 0.8;
+    }
+    .upload-body {
+      padding: 2rem;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    .upload-instructions {
+      font-size: 1.1rem;
+      margin-bottom: 1.5rem;
+      color: #555;
+      text-align: center;
+    }
+    .custom-file-upload {
+      position: relative;
+      border: 2px dashed #007bff;
+      border-radius: 10px;
+      padding: 2rem;
+      text-align: center;
+      font-size: 1.1rem;
+      color: #007bff;
+      background-color: #f8f9fa;
+      cursor: pointer;
+      transition: background-color 0.3s ease, border-color 0.3s ease;
+    }
+    .custom-file-upload:hover {
+      background-color: #e2e6ea;
+      border-color: #0056b3;
+    }
+    .custom-file-upload input[type="file"] {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      cursor: pointer;
+    }
+    .preview-container {
+      border: 2px solid #007bff;
+      border-radius: 10px;
+      min-width: 300px;
+      min-height: 300px;
+      display: inline-block;
+      position: relative;
+      overflow: hidden;
+      background-color: #f1f1f1;
+    }
+    .preview-container img {
+      max-width: 100%;
+      max-height: 100%;
+      display: block;
+      margin: auto;
+    }
+    .action-buttons {
+      margin-top: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+    }
+    .action-buttons button {
+      width: 45%;
+      font-size: 1rem;
+      padding: 0.5rem;
+    }
+    .custom-select-lang {
+      border: 2px solid #007bff;
+      border-radius: 5px;
+      padding: 0.5rem;
+      background: #fff;
+      font-size: 1.1rem;
+      color: #007bff;
+      transition: border-color 0.3s ease;
+    }
+    .custom-select-lang:focus {
+      border-color: #00aaff;
+      outline: none;
+    }
+  </style>
+  <div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-lg-6">
+        <div class="card upload-card">
+          <div class="upload-header">
+            Advanced Image Uploader
+            <small>Preview and confirm your selection</small>
+          </div>
+          <div class="card-body upload-body">
+            <form id="uploadForm" method="POST" enctype="multipart/form-data">
+              {% csrf_token %}
+              <div class="form-group">
+                <label for="languageSelect" class="font-weight-bold">Select Language</label>
+                <select id="languageSelect" name="language" class="custom-select-lang form-control">
+                  <option value="" disabled selected>Select a language</option>
+                  <option value="english">English</option>
+                  <option value="hindi">Hindi</option>
+                  <option value="bengali">Bengali</option>
+                  <option value="telugu">Telugu</option>
+                  <option value="marathi">Marathi</option>
+                  <option value="tamil">Tamil</option>
+                  <option value="gujarati">Gujarati</option>
+                  <option value="kannada">Kannada</option>
+                  <option value="malayalam">Malayalam</option>
+                  <option value="punjabi">Punjabi</option>
+                </select>
+              </div>
+              <div id="uploadSection">
+                <div class="upload-instructions">
+                  Please select an image file to upload. Supported formats: JPEG, PNG, GIF.
+                </div>
+                <div class="position-relative">
+                  <div class="custom-file-upload">
+                    <i class="fas fa-upload"></i> Click here to choose your file
+                    <input type="file" id="imageInput" name="image" accept="image/*">
+                  </div>
+                </div>
+              </div>
+              <div id="previewSection" class="text-center" style="display:none;">
+                <div class="preview-container mb-3">
+                  <img id="previewImage" src="" alt="Image Preview" style="max-height: 300px;">
+                </div>
+                <div class="action-buttons">
+                  <button type="submit" class="btn btn-success">Submit</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    document.getElementById('imageInput').addEventListener('change', function(event) {
+      const fileInput = event.target;
+      if (fileInput.files && fileInput.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          document.getElementById('uploadSection').style.display = 'none';
+          document.getElementById('previewImage').src = e.target.result;
+          document.getElementById('previewSection').style.display = 'block';
+        }
+        reader.readAsDataURL(fileInput.files[0]);
+      }
+    });
+
+    document.getElementById('backButton').addEventListener('click', function() {
+      document.getElementById('uploadSection').style.display = 'block';
+      document.getElementById('previewSection').style.display = 'none';
+      document.getElementById('imageInput').value = '';
+    });
+  </script>
+{% endif %}
+{% endblock %}
